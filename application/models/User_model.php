@@ -9,15 +9,15 @@ class User_model extends CI_Model {
   }
 
   public function get_by_email($email) {
-    return $this->db->get_where('user', ['email' => $email])->row();
+    return $this->db->get_where('users', ['email' => $email])->row();
   }
 
   public function get_by_id($id) {
-    return $this->db->get_where('user', ['id' => $id])->row();
+    return $this->db->get_where('users', ['id' => $id])->row();
   }
 
   public function insert($data) {
-    return $this->db->insert('user', $data);
+    return $this->db->insert('users', $data);
   }
 
   public function update($id, $data) {
@@ -25,10 +25,10 @@ class User_model extends CI_Model {
   }
 
   public function get_all_users() {
-    return $this->db->get('user')->result;
+    return $this->db->get('users')->result;
   }
 
   public function delete($id) {
-    return $this->db->delete('user', ['id' => $id]);
+    return $this->db->delete('users', ['id' => $id]);
   }
 } 
