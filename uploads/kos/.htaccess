@@ -1,0 +1,14 @@
+# Nonaktifkan eksekusi PHP di dalam folder upload
+<FilesMatch "\.(php|php5|php7|phtml)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Batasi hanya file gambar
+<FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
+  Order Allow,Deny
+  Allow from all
+</FilesMatch>
+
+# Tambahan keamanan - cegah directory listing
+Options -Indexes
