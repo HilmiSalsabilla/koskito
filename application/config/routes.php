@@ -53,20 +53,24 @@ $route['default_controller'] = 'kos'; // Halaman awal
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// Kos Public
-$route['kos'] = 'kos/index';
-$route['kos/detail/(:num)'] = 'kos/detail/$1';
-$route['kos/pesan/(:num)'] = 'user/pesan/$1';
-
-// Auth
+// --- Auth routes ---
 $route['login'] = 'auth/login';
 $route['register'] = 'auth/register';
 $route['logout'] = 'auth/logout';
 
-// User
-$route['profil'] = 'user/index';
-$route['riwayat'] = 'user/riwayat';
-
-// Admin
-$route['admin'] = 'admin/login';
+// --- Admin routes ---
+$route['admin'] = 'admin/login'; // alias login admin
 $route['admin/dashboard'] = 'admin/dashboard';
+$route['admin/kos/form'] = 'admin/form_kos';
+$route['admin/kos/form/(:num)'] = 'admin/form_kos/$1';
+
+// --- Kos routes ---
+$route['kos'] = 'kos/index';
+$route['kos/detail/(:num)'] = 'kos/detail/$1';
+$route['kos/search'] = 'kos/search';
+
+// --- User routes ---
+$route['user'] = 'user/index';
+$route['user/edit_profil'] = 'user/edit_profil';
+$route['kos/pesan/(:num)'] = 'user/pesan/$1';
+$route['riwayat'] = 'user/riwayat';
