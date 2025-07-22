@@ -14,6 +14,12 @@
           <td><?= htmlspecialchars($order->nama_kos) ?></td>
           <td><?= $order->tanggal_pesan ?></td>
           <td><?= ucfirst($order->status) ?></td>
+          <td>
+            <?= ucfirst($order->status) ?>
+            <?php if ($order->status == 'pending'): ?>
+              <br><a href="<?= site_url('user/upload_bukti/' . $order->id) ?>" class="btn btn-sm btn-warning mt-1">Upload Bukti</a>
+            <?php endif; ?>
+          </td>
         </tr>
       <?php endforeach; ?>
     </tbody>

@@ -46,7 +46,7 @@ class Auth extends CI_Controller {
       $this->User_model->insert($data);
       redirect('login');
     }
-    $this->load->view('template/header', ['title' => 'Daftar']);
+    $this->load->view('template/header', ['title' => 'Register']);
     $this->load->view('template/navbar');
     $this->load->view('auth/register');
     $this->load->view('template/footer');

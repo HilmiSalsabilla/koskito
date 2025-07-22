@@ -74,3 +74,5 @@ $route['user'] = 'user/index';
 $route['user/edit_profil'] = 'user/edit_profil';
 $route['kos/pesan/(:num)'] = 'user/pesan/$1';
 $route['riwayat'] = 'user/riwayat';
+$route['user/upload_bukti/(:num)'] = 'user/upload_bukti/$1';
+
