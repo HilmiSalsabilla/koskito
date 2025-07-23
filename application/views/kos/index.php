@@ -1,9 +1,10 @@
 <div class="container mt-4">
   <h2 class="mb-4">Daftar Kos</h2>
+  <hr><br>
 
   <div class="row">
     <?php foreach ($kos_list as $kos): ?>
-      <div class="col-md-4 mb-4">
+      <div class="col-md-3 mb-3">
         <div class="card h-100">
           <img src="<?= base_url('uploads/kos/' . $kos->foto) ?>" 
               onerror="this.scr='<?= base_url('assets/image/noimage.jpg') ?>'"

@@ -23,7 +23,7 @@ class User extends CI_Controller {
     $this->load->view('template/footer');
   }
 
-  public function pesan($id_kos) {
+  public function pesan($id_kos) {  
     if (!$this->session->userdata('logged_in')) redirect('login');
     $kos = $this->Kos_model->get_kos_by_id($id_kos);
     if (!$kos) show_404();
@@ -33,6 +33,9 @@ class User extends CI_Controller {
       $mulai = date('Y-m-d');
       $selesai = date('Y-m-d', strtotime("+{$durasi} months"));
       $kos = $this->Kos_model->get_kos_by_id($id_kos);
+      if (!$kos || !isset($kos->id_user_pemilik)) {
+        show_error("Kos tidak ditemukan atau tidak memiliki pemilik", 500);
+      }
 
       $data = [
         'id_user' => $this->session->userdata('user_id'),
@@ -96,7 +99,25 @@ class User extends CI_Controller {
     $this->load->view('template/navbar');
     $this->load->view('user/upload_bukti', $data);
     $this->load->view('template/footer');
-  } 
+  }
+
+  public function batal($id) {
+    if (!$this->session->userdata('logged_in')) redirect('login');
+
+    $order = $this->Order_model->get_by_id($id);
+    if (!$order || $order->id_user != $this->session->userdata('user_id')) {
+      show_error('Pemesanan tidak ditemukan atau tidak diizinkan.', 403);
+    }
+
+    if ($order->status === 'pending') {
+      $this->Order_model->update_status($id, 'cancelled');
+      $this->session->set_flashdata('success', 'Pemesanan berhasil dibatalkan.');
+    } else {
+      $this->session->set_flashdata('error', 'Pemesanan tidak bisa dibatalkan.');
+    }
+
+    redirect('user/riwayat');
+  }
 
   public function edit_profile() {
     if (!$this->session->userdata('logged_in')) {

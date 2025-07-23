@@ -33,6 +33,7 @@ class Admin extends CI_Controller {
     $data['title'] = 'Admin Dashboard';
     $data['kos'] = $this->Kos_model->get_all_kos();
     $data['user'] = $this->User_model->get_all_users();
+    $data['orders'] = $this->Order_model->get_all_orders();
     $this->load->view('template/header', $data);
     $this->load->view('template/navbar');
     $this->load->view('admin/dashboard', $data);
@@ -50,27 +51,20 @@ class Admin extends CI_Controller {
     $this->load->view('template/footer');
   }
 
-  // public function manage_users() {
-  //   if (!$this->session->userdata('admin_logged_in')) {
-  //     redirect('admin');
-  //   }
-  //   $data['title'] = 'Manage Users';
-  //   $data['user'] = $this->User_model->get_all_users();
-  //   $this->load->view('template/header', $data);
-  //   $this->load->view('template/navbar');
-  //   $this->load->view('admin/manage_users', $data);
-  //   $this->load->view('template/footer');
-  // }
+  public function verifikasi_pembayaran($id) {
+    if (!$this->session->userdata('admin_logged_in')) redirect('admin');
 
-  // public function delete_user($id) {
-  //   if (!$this->session->userdata('admin_logged_in')) {
-  //     redirect('admin');
-  //   }
-  //   if ($this->User_model->delete_user($id)) {
-  //     $this->session->set_flashdata('success', 'User deleted successfully.');
-  //   } else {
-  //     $this->session->set_flashdata('error', 'Failed to delete user.');
-  //   }
-  //   redirect('admin/manage_users');
-  // }
+    $this->Order_model->update_status($id, 'paid');
+    $this->session->set_flashdata('success', 'Pembayaran berhasil diverifikasi.');
+    redirect('admin/dashboard');
+  }
+
+  public function tolak_pembayaran($id) {
+    if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+
+    $this->Order_model->update_status($id, 'cancelled');
+    $this->session->set_flashdata('error', 'Pembayaran ditolak.');
+    redirect('admin/dashboard');
+  }
+
 }
